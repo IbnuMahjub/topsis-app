@@ -22,6 +22,12 @@
       <button type="button" class="btn btn-success mt-3" id="lanjutKriteria">Lanjut ke Kriteria</button>
 
       <div id="formKriteriaDanNilai" style="display:none;"></div>
+      <div id="hasilChartContainer" style="display: none;">
+        <hr>
+        <h5 class="fw-semibold">Visualisasi Hasil</h5>
+        <div id="chartHasilTopsis"></div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -60,31 +66,6 @@
         }
       });
     }
-
-    // function aktifkanAutocompleteKriteria(inputElement) {
-    //   $.ajax({
-    //     url: APP_URL + '/data_kriteria',  // Mengambil data dari API kriteria
-    //     method: 'GET',
-    //     success: function(response) {
-    //       if (response.success) {
-    //         const dataList = response.data.map(item => item.kriteria);
-    //         $(inputElement).autocomplete({
-    //           source: function(request, responseCallback) {
-    //             const term = request.term.toLowerCase();
-    //             const matches = dataList.filter(name => name.toLowerCase().includes(term));
-    //             responseCallback(matches);
-    //           },
-    //           minLength: 1
-    //         });
-    //       } else {
-    //         console.warn("Gagal ambil data dari API");
-    //       }
-    //     },
-    //     error: function() {
-    //       console.error("Gagal konek ke API");
-    //     }
-    //   });
-    // }
 
     function aktifkanAutocompleteKriteria(inputElement) {
     $.ajax({
