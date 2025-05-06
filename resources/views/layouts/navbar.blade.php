@@ -4,7 +4,7 @@
       <img src="{{ asset('/assets/images/topsisnobg.png') }}" class="logo-img" width="45" alt="">
     </div>
     <div class="logo-name">
-      <h5 class="mb-0">Algoritma Topsis</h5>
+      <h5 class="mb-0">PT BENDHARD</h5>
     </div>
   </div>
   <div class="btn-toggle d-xl-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
@@ -18,7 +18,7 @@
           <img src="{{ asset('/assets/images/topsisnobg.png') }}" class="logo-icon" width="45" alt="logo icon">
         </div>
         <div class="">
-          {{-- <h4 class="logo-text">Maxton</h4> --}}
+          <h4 class="logo-text">PT BENDHARD</h4>
         </div>
       </div>
       <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="offcanvas">
