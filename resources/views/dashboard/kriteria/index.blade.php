@@ -3,7 +3,7 @@
 
 <div class="mb-3">
   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kriteriaModal" id="createPropertyBtn">
-     Tambah Data Order Baru
+     Tambah Data Kriteria
   </button>
 </div>
 
@@ -29,7 +29,7 @@
                   <a href="javascript:void(0)" class="btn btn-warning btn-sm me-2" onclick="editKriteria({{ $item->id}})">
                     <span data-feather="edit"></span> Edit
                   </a>
-                  <a href="/property/{{ $item->id }}" class="btn btn-primary btn-sm me-2">Detail</a>
+                  {{-- <a href="/property/{{ $item->id }}" class="btn btn-primary btn-sm me-2">Detail</a> --}}
                   <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id }})">
                     <span data-feather="x-circle"></span> Hapus
                   </button>
@@ -47,7 +47,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="kriteriaModalLabel">Add Property</h5>
+        <h5 class="modal-title" id="kriteriaModalLabel">Add Kriteria</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -57,7 +57,7 @@
             <div class="col mb-3">
               <label for="name_property" class="form-label">Name kriteria</label>
               <input type="text" class="form-control @error('kriteria') is-invalid @enderror" id="kriteria" name="kriteria">
-              @error('name_property')
+              @error('kriteria')
                   <div class="invalid-feedback">
                       {{ $message }}
                   </div>
@@ -101,7 +101,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editkriteriaModalLabel">Edit Property</h5>
+        <h5 class="modal-title" id="editkriteriaModalLabel">Edit Kriteria</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

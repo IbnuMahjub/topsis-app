@@ -290,7 +290,7 @@
 
 
   <!--start switcher-->
-  <button class="btn btn-grd btn-grd-primary position-fixed bottom-0 end-0 m-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
+  {{-- <button class="btn btn-grd btn-grd-primary position-fixed bottom-0 end-0 m-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
     <i class="material-icons-outlined">tune</i>Customize
   </button>
   
@@ -358,7 +358,7 @@
 
       </div>
     </div>
-  </div>
+  </div> --}}
         
     </div>
   </main>
@@ -406,6 +406,9 @@
 	<script src="{{ asset('vertical/assets/plugins/fancy-file-uploader/jquery.iframe-transport.js') }}"></script>
 	<script src="{{ asset('vertical/assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js') }}"></script>
 	<script src="{{ asset('vertical/assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/js/data-widgets.js') }}"></script>
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 
   {{-- testi --}}
   <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2.1.1/dist/socket.io.js"></script>

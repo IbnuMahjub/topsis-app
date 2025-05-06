@@ -1,12 +1,12 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
   <div class="sidebar-header">
-    {{-- <a href="/" class="logo-icon">
-      <img src="{{ asset('vertical/assets/images/logo-icon.png') }}" class="logo-img" alt="">
-    </a> --}}
+    <a href="/" class="logo-icon">
+      <img src="{{ asset('/assets/images/topsisnobg.png') }}" class="logo-img" alt="">
+    </a>
     <a href="/" class="logo-name flex-grow-1">
-      {{-- <h5 class="mb-0">PT BENDHARD</h5>
-      <h5>SCHULTE SHIPMANAGEMENT</h5> --}}
-      <b><b>PT BENDHARD</b> SCHULTE SHIPMANAGEMENT</b>
+      <h5 class="mb-0">PT BENDHARD</h5>
+      {{-- <h5>SCHULTE SHIPMANAGEMENT</h5>
+      <b><b>PT BENDHARD</b> SCHULTE SHIPMANAGEMENT</b> --}}
     </a>
     <div class="sidebar-close">
       <span class="material-icons-outlined">close</span>
@@ -33,9 +33,9 @@
           <li class="{{ request()->is('kriteria*') ? 'active' : '' }}">
             <a href="/kriteria"><i class="material-icons-outlined">menu</i>Kriteria</a>
           </li>
-          <li class="{{ request()->is('unit*') ? 'active' : '' }}">
+          {{-- <li class="{{ request()->is('unit*') ? 'active' : '' }}">
             <a href="/unit"><i class="material-icons-outlined">bed</i>Unit</a>
-          </li>
+          </li> --}}
         </ul>     
       </li>
       <li class="">

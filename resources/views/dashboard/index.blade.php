@@ -8,9 +8,11 @@
           <div class="d-flex align-items-center gap-3 mb-5">
             <img src="{{ !empty(session('user')['avatar']) ? session('user')['avatar'] : asset('vertical/assets/images/avatars/11.png') }}" class="rounded-circle bg-grd-info p-1" width="60" height="60" alt="user">
             <div class="">
-              <p class="mb-0 fw-semibold">Welcome back</p>
+              <p class="mb-0 fw-semibold">Welcome back, {{ Auth::user()->name }}</p>
               {{-- <h4 class="fw-semibold mb-0 fs-4 mb-0">{{ session('user')['name']  ? session('user')['name'] : 'User' }}</h4> --}}
               {{-- <pre>{{ var_dump(session()->all()) }}</pre> --}}
+              {{-- <pre>{{ print_r(Auth::user(), true) }}</pre> --}}
+              
             </div>
           </div>
           <div class="d-flex align-items-center gap-5">
@@ -42,4 +44,5 @@
     </div>
   </div>
 </div>
+  
 @endsection
