@@ -41,7 +41,6 @@
 
   $(document).ready(function () {
     
-    // Fungsi untuk autocomplete alternatif (pilihan)
     function aktifkanAutocomplete(inputElement) {
       $.ajax({
         url: APP_URL + '/data_karyawan',  // Mengambil data dari API alternatif
@@ -72,6 +71,7 @@
       url: APP_URL + '/data_kriteria',
       method: 'GET',
       success: function(response) {
+        console.log(response);
         if (response.success) {
           const dataKriteria = response.data;
 
