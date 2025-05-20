@@ -44,12 +44,12 @@
           <div class="menu-title">Topsis</div>
         </a>
       </li>
-      <form action="/logout" method="POST">
+      {{-- <form action="/logout" method="POST">
         @csrf
         <button type="submit" class="dropdown-item d-flex align-items-center gap-2 py-2 border-0 bg-transparent" style="cursor: pointer;">
             <i class="material-icons-outlined">power_settings_new</i>Logout
         </button>
-      </form>
+      </form> --}}
     </ul>
   </div>
 </aside>
