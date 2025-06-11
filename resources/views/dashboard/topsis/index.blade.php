@@ -238,64 +238,102 @@
         });
       });
 
-      const hasil = hitungTopsis(nilai, bobot, tipe);
-
-      let html = `<h5>Hasil Perhitungan TOPSIS:</h5><ul>`;
-      hasil.forEach(h => {
-        html += `<li><b>${h.nama}</b>: ${h.nilai.toFixed(4)}</li>`;
-      });
-      html += `</ul>`;
-      html += `<p><strong>Rekomendasi terbaik:</strong> ${hasil[0].nama}</p>`;
-
-      showPopup(html);
+      const logRumus = hitungTopsisDenganRumus(nilai, bobot, tipe);
+      showPopup(logRumus);
     });
 
-    function hitungTopsis(nilai, bobot, tipe) {
+
+    function hitungTopsisDenganRumus(nilai, bobot, tipe) {
       const alternatif = Object.keys(nilai);
       const jmlKriteria = bobot.length;
       const matrix = alternatif.map(a => nilai[a]);
 
+      let logRumus = "";
+
+      // 1. Pembagi Normalisasi
       let pembagi = Array(jmlKriteria).fill(0);
       for (let i = 0; i < jmlKriteria; i++) {
         pembagi[i] = Math.sqrt(matrix.reduce((sum, alt) => sum + Math.pow(alt[i], 2), 0));
       }
+      logRumus += `<h6>1️⃣ Pembagi Normalisasi:</h6><ul>`;
+      pembagi.forEach((val, i) => {
+        logRumus += `<li>Pembagi kriteria ${i+1}: √(${matrix.map(a => a[i] + "²").join(" + ")}) = ${val.toFixed(4)}</li>`;
+      });
+      logRumus += `</ul>`;
 
-      let matriksNormal = matrix.map(baris =>
-        baris.map((val, i) => val / (pembagi[i] || 1))
-      );
+      // 2. Matriks Normalisasi
+      let matriksNormal = matrix.map(baris => baris.map((val, i) => val / (pembagi[i] || 1)));
+      logRumus += `<h6>2️⃣ Matriks Normalisasi:</h6><table class="table table-sm"><thead><tr><th>Alternatif</th>${[...Array(jmlKriteria)].map((_, i) => `<th>K${i+1}</th>`).join("")}</tr></thead><tbody>`;
+      matriksNormal.forEach((baris, idx) => {
+        logRumus += `<tr><td>${alternatif[idx]}</td>${baris.map(v => `<td>${v.toFixed(4)}</td>`).join("")}</tr>`;
+      });
+      logRumus += `</tbody></table>`;
 
-      let matriksTertimbang = matriksNormal.map(baris =>
-        baris.map((val, i) => val * bobot[i])
-      );
+      // 3. Matriks Normalisasi Terbobot
+      let matriksTertimbang = matriksNormal.map(baris => baris.map((val, i) => val * bobot[i]));
+      logRumus += `<h6>3️⃣ Matriks Tertimbang:</h6><table class="table table-sm"><thead><tr><th>Alternatif</th>${[...Array(jmlKriteria)].map((_, i) => `<th>K${i+1}</th>`).join("")}</tr></thead><tbody>`;
+      matriksTertimbang.forEach((baris, idx) => {
+        logRumus += `<tr><td>${alternatif[idx]}</td>${baris.map(v => `<td>${v.toFixed(4)}</td>`).join("")}</tr>`;
+      });
+      logRumus += `</tbody></table>`;
 
-      let idealPositif = [];
-      let idealNegatif = [];
+      // 4. Solusi Ideal Positif & Negatif
+      let idealPositif = [], idealNegatif = [];
       for (let i = 0; i < jmlKriteria; i++) {
         const kolom = matriksTertimbang.map(b => b[i]);
         idealPositif[i] = tipe[i] === "benefit" ? Math.max(...kolom) : Math.min(...kolom);
         idealNegatif[i] = tipe[i] === "benefit" ? Math.min(...kolom) : Math.max(...kolom);
       }
+      logRumus += `<h6>4️⃣ Solusi Ideal:</h6><ul>`;
+      idealPositif.forEach((val, i) => {
+        logRumus += `<li>A⁺ K${i+1}: ${val.toFixed(4)} | A⁻ K${i+1}: ${idealNegatif[i].toFixed(4)}</li>`;
+      });
+      logRumus += `</ul>`;
 
+      // 5. Jarak ke Ideal
       const hasil = alternatif.map((alt, idx) => {
         const dPlus = Math.sqrt(matriksTertimbang[idx].reduce((sum, val, i) => sum + Math.pow(val - idealPositif[i], 2), 0));
         const dMin = Math.sqrt(matriksTertimbang[idx].reduce((sum, val, i) => sum + Math.pow(val - idealNegatif[i], 2), 0));
         const nilaiPreferensi = dMin / (dMin + dPlus);
+        logRumus += `<h6>5️⃣ Jarak ${alt}:</h6>`;
+        logRumus += `<ul><li>D⁺: √(${matriksTertimbang[idx].map((val, i) => `(${val.toFixed(4)}-${idealPositif[i].toFixed(4)})²`).join(" + ")}) = ${dPlus.toFixed(4)}</li>`;
+        logRumus += `<li>D⁻: √(${matriksTertimbang[idx].map((val, i) => `(${val.toFixed(4)}-${idealNegatif[i].toFixed(4)})²`).join(" + ")}) = ${dMin.toFixed(4)}</li>`;
+        logRumus += `<li>V: ${dMin.toFixed(4)} / (${dMin.toFixed(4)} + ${dPlus.toFixed(4)}) = ${nilaiPreferensi.toFixed(4)}</li></ul>`;
         return { nama: alt, nilai: nilaiPreferensi };
       });
 
-      return hasil.sort((a, b) => b.nilai - a.nilai);
+      // 6. Urutkan Hasil
+      const hasilSort = hasil.sort((a, b) => b.nilai - a.nilai);
+
+      // Tambahkan hasil akhir ke logRumus
+      logRumus += `<h5>🔥 Hasil Akhir:</h5><ul>`;
+      hasilSort.forEach(h => {
+        logRumus += `<li><b>${h.nama}</b>: ${h.nilai.toFixed(4)}</li>`;
+      });
+      logRumus += `</ul><p><strong>Rekomendasi terbaik:</strong> ${hasilSort[0].nama}</p>`;
+
+      return logRumus;
     }
 
+
     function showPopup(content) {
-      const popup = `
-        <div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50" style="z-index:1040;" id="popupOverlay"></div>
-        <div class="card position-fixed top-50 start-50 translate-middle p-4 bg-white shadow" style="z-index:1051; max-width:500px;" id="popupCard">
-          ${content}
-          <button class="btn btn-danger mt-3" id="closePopup">Tutup</button>
-        </div>
-      `;
-      $('#popupContainer').html(popup);
-    }
+        const popup = `
+          <div class="card position-fixed top-50 start-50 translate-middle p-4 bg-white shadow rounded-4 border"
+              style="z-index:1051; width: 90%; max-width: 1200px; max-height: 90vh; overflow-y: auto;" id="popupCard">
+            <div style="position: sticky; top: 0; z-index: 2; padding-bottom: 1rem;">
+              <h4 class="fw-bold mb-3">Detail Perhitungan TOPSIS</h4>
+              <button class="btn btn-danger btn-sm" id="closePopup">Tutup</button>
+              <hr>
+            </div>
+            <div style="padding-bottom: 2rem;">
+              ${content}
+            </div>
+          </div>
+        `;
+        $('#popupContainer').html(popup);
+      }
+
+
 
     $(document).on('click', '#closePopup', function () {
       $('#popupOverlay').remove();
