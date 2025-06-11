@@ -409,6 +409,11 @@
   <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
   <script src="{{ asset('assets/js/data-widgets.js') }}"></script>
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  <!-- MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
   {{-- testi --}}
   <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2.1.1/dist/socket.io.js"></script>
