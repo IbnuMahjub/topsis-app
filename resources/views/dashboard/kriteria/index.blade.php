@@ -65,13 +65,13 @@
             </div>
             <div class="col mb-3">
               <label for="edit_category_id" class="form-label">tipe</label>
-              <select class="form-control" id="category_id" name="tipe">
+              <select class="form-control" id="tipe" name="tipe">
                 <option value="">Select tipe</option>
                 {{-- @foreach ($categories as $category)
                   <option value="{{ $category['id'] }}">{{ $category['name_category'] }}</option>
                 @endforeach --}}
-                <option value="Benefit">test</option>
-                <option value="Cost">test2</option>
+                <option value="Benefit">Benefit</option>
+                <option value="Cost">Cost</option>
               </select>
             </div>
           </div>
@@ -117,14 +117,14 @@
               <input type="text" class="form-control" id="edit_name_kriteria" name="kriteria">
             </div>
             <div class="col-md-6 mb-3">
-              <label for="edit_category_id" class="form-label">Category</label>
-              <select class="form-control" id="edit_category_id" name="tipe">
+              <label for="edit_category_id" class="form-label">Tipe</label>
+              <select class="form-control" id="tipe_edit" name="tipe">
                 <option value="">Select Category</option>
                 {{-- @foreach ($categories as $category)
                   <option value="{{ $category['id'] }}">{{ $category['name_category'] }}</option>
                 @endforeach --}}
-                <option value="Cost">test</option>
-                <option value="Benefit">test2</option>
+                <option value="Cost">Cost</option>
+                <option value="Benefit">Benefit</option>
               </select>
             </div>
           </div>
@@ -159,7 +159,7 @@ $.ajaxSetup({
     var table = $('#example').DataTable();
 
     $('#kriteriaModal').on('shown.bs.modal', function () {
-        $('#category_id').select2({
+        $('#tipe').select2({
             theme: "bootstrap-5",
             width: '100%',
             placeholder: $( this ).data( 'placeholder' ), 
@@ -169,7 +169,7 @@ $.ajaxSetup({
 
     // select2 edit modal
     $('#editkriteriaModal').on('shown.bs.modal', function () {
-        $('#edit_category_id').select2({
+        $('#tipe_edit').select2({
             theme: "bootstrap-5",
             width: '100%',
             placeholder: "Choose...",
@@ -298,7 +298,7 @@ $('#updatePropertyBtn').on('click', function() {
     // e.preventDefault();
     var id = $('#edit_kriteria_id').val();
     var kriteria = $('#edit_name_kriteria').val();
-    var tipe = $('#edit_category_id').val();
+    var tipe = $('#tipe_edit').val();
     var bobot = $('#edit_bobot').val();
 
     $.ajax({
@@ -352,60 +352,6 @@ $('#updatePropertyBtn').on('click', function() {
     });
 });
 
-// $('#editkriteriaForm').on('submit', function(e) {
-//     e.preventDefault();
-//     var id = $('#edit_kriteria_id').val();
-//     var kriteria = $('#edit_name_kriteria').val();
-//     var tipe = $('#edit_category_id').val();
-//     var bobot = $('#edit_bobot').val();
-
-//     $.ajax({
-//         url: '/kriteria/' + id,
-//         type: 'PUT',
-//         data: {
-//             _token: '{{ csrf_token() }}',
-//             kriteria: kriteria,
-//             tipe: tipe,
-//             bobot: bobot
-//         },
-//         success: function(response) {
-//             console.log("Response from API:", response);
-//             if (response.success) {
-//                 var row = $('#datakriteria-' + id);
-//                 row.find('td:eq(0)').text(response.data.kriteria); 
-//                 row.find('td:eq(1)').text(response.data.bobot); 
-//                 row.find('td:eq(2)').text(response.data.tipe); 
-//                 // row.find('td:eq(3)').html('<img src="' + response.data.image + '" alt="Property Image" style="width: 100px;">'); // Image
-                
-//                 Swal.fire({
-//                     icon: 'success',
-//                     title: 'Success!',
-//                     text: response.message,
-//                     confirmButtonText: 'OK'
-//                 });
-
-//                 // Hide the edit modal
-//                 $('#editkriteriaModal').modal('hide');
-//             } else {
-//                 Swal.fire({
-//                     icon: 'error',
-//                     title: 'Oops...',
-//                     text: response.message || 'Failed to update property',
-//                     confirmButtonText: 'OK'
-//                 });
-//             }
-//         },
-//         error: function(xhr, status, error) {
-//             console.error(xhr.responseText);
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Error!',
-//                 text: 'Failed to update property. Please try again later.',
-//                 confirmButtonText: 'OK'
-//             });
-//         }
-//     });
-// });
 
 function confirmDelete(id) {
     Swal.fire({

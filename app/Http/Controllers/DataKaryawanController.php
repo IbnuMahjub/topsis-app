@@ -158,6 +158,7 @@ class DataKaryawanController extends Controller
 
     public function kriteria_store(Request $request)
     {
+        // dd($request->all());
         Log::info($request->all());
         $validated = $request->validate([
             'kriteria' => 'required|string',
