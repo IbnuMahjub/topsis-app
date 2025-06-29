@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Algoritma Topsis | {{ $title }}</title>
-  <link rel="icon" href="{{ asset('landing/assets/images/avatar.png') }}" type="image/png">
+  <link rel="icon" href="{{ asset('/assets/images/topsisnobg.png') }}" type="image/png">
   <link href="{{ asset('landing/assets/css/pace.min.css')}}" rel="stylesheet">
   <script src="{{ asset('landing/assets/js/pace.min.js') }}"></script>
 
