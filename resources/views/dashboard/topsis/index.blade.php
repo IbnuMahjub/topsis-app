@@ -11,7 +11,7 @@
         <form id="pilihanForm">
           <div id="pilihanContainer">
             <div class="input-group mb-2">
-              <input type="text" name="pilihan[]" class="form-control" placeholder="Masukkan nama pilihan (contoh: Laptop A)">
+              <input type="text" name="pilihan[]" class="form-control" placeholder="Masukkan nama karyawan (contoh: Jhon A)">
               <button type="button" class="btn btn-danger btn-sm removePilihan">Hapus</button>
             </div>
           </div>
@@ -240,6 +240,42 @@
 
       const logRumus = hitungTopsisDenganRumus(nilai, bobot, tipe);
       showPopup(logRumus);
+
+      // Tambahkan bagian kirim ke backend
+      const namaTerbaik = Object.keys(nilai).reduce((a, b) => {
+        const hasil = hitungTopsisDenganRumus(nilai, bobot, tipe);
+        return hasil.includes(b) ? b : a;
+      }, "");
+
+      const hasilSort = Object.entries(nilai).map(([nama, _]) => {
+        const v = logRumus.match(new RegExp(`<li><b>${nama}</b>: ([\\d\\.]+)</li>`));
+        return {
+          nama,
+          nilai: v ? parseFloat(v[1]) : 0
+        };
+      }).sort((a, b) => b.nilai - a.nilai);
+
+      const namaTerbaikFix = hasilSort[0].nama;
+      const nilaiTerbaikFix = hasilSort[0].nilai;
+
+      $.ajax({
+        url: APP_URL + '/topsis/simpan-hasil',
+        method: 'POST',
+        data: {
+          _token: '{{ csrf_token() }}',
+          nama_terbaik: namaTerbaikFix,
+          nilai_preferensi: nilaiTerbaikFix,
+          log_perhitungan: logRumus
+        },
+        success: function(res) {
+          console.log('Hasil disimpan:', res);
+        },
+        error: function(err) {
+          console.error('Gagal menyimpan hasil:', err.responseText);
+        }
+      });
+
+
     });
 
 

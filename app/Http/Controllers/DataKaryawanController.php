@@ -17,7 +17,7 @@ class DataKaryawanController extends Controller
     {
         $breadcrumbs = [
             ['title' => 'Dashboard', 'url' => route('dashboard')],
-            ['title' => 'Analysis', 'url' => 'javascript:;', 'active' => true],
+            ['title' => 'Analysis', 'url' => '/list-terbaik', 'active' => true],
         ];
         $this->generateBreadcrumb($breadcrumbs, $breadcrumbsTitle = 'Dashboard');
         return view('dashboard.karyawan.index', [
