@@ -30,6 +30,10 @@ Route::post('/update-theme', [HomeController::class, 'setTheme'])->name('theme.u
 // Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
 Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/register', [LoginController::class, 'register']);
+Route::post('/register', [LoginController::class, 'storeRegister'])->name('register.storeRegister');
+
+
 
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 // Route::get('/topsis', [TopsisController::class, 'index']);
@@ -53,12 +57,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/topsis', [TopsisController::class, 'index']);
-    Route::get('/karyawan', [DataKaryawanController::class, 'karyawan']);
-    Route::get('/data_karyawan', [DataKaryawanController::class, 'data_karywan']);
-    Route::get('/karyawan/{id}/edit/', [DataKaryawanController::class, 'editKaryawan']);
-    Route::post('/karyawan', [DataKaryawanController::class, 'karyawan_store'])->name('karyawan.store');
-    Route::put('/karyawan/{id}', [DataKaryawanController::class, 'karyawan_update'])->name('karyawan.update');
-    Route::delete('/karyawan/{id}', [DataKaryawanController::class, 'karyawan_delete'])->name('karyawan.delete');
+    Route::get('/karyawan', [DataKaryawanController::class, 'karyawan'])->middleware('admin');
+    Route::get('/data_karyawan', [DataKaryawanController::class, 'data_karywan'])->middleware('admin');
+    Route::get('/karyawan/{id}/edit/', [DataKaryawanController::class, 'editKaryawan'])->middleware('admin');
+    Route::post('/karyawan', [DataKaryawanController::class, 'karyawan_store'])->name('karyawan.store')->middleware('admin');
+    Route::put('/karyawan/{id}', [DataKaryawanController::class, 'karyawan_update'])->name('karyawan.update')->middleware('admin');
+    Route::delete('/karyawan/{id}', [DataKaryawanController::class, 'karyawan_delete'])->name('karyawan.delete')->middleware('admin');
+
+    Route::post('/topsis/simpan-hasil', [TopsisController::class, 'simpanHasil']);
+
+    Route::get('/topsis/karyawan-terbaik', [TopsisController::class, 'karyawanTerbaik']);
+    Route::get('/list-terbaik', [TopsisController::class, 'karyawanTerbaikTable']);
+    Route::delete('/topsis/delete/{id}', [TopsisController::class, 'destroy'])->name('topsis.destroy');
 
 
     Route::get('/kriteria', [DataKaryawanController::class, 'kriteria']);

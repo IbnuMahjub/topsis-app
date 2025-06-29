@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Algoritma Topsis | {{ $title }}</title>
+  <title>Kampoeng villa | {{ $title }}</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!--favicon-->
@@ -28,8 +28,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
   <!-- Link CSS untuk Routing Machine -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
@@ -104,6 +103,49 @@
       .select2-container .select2-selection--single .select2-selection__rendered {
         line-height: 1.5; 
       }
+
+      .chat-bubble {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    word-wrap: break-word;
+  }
+
+  .chat-bubble.sent {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+  }
+
+  .chat-bubble.received {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+  }
+
+  .chat-meta {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 5px;
+    text-align: right;
+  }
+
+  #chatMessages {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   </style>
 
 </head>
@@ -157,140 +199,13 @@
         <div class="row">
           @yield('content')
         </div>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
-            <div class="offcanvas-header border-bottom h-70">
-              <h5 class="mb-0" id="offcanvasRightLabel">8 New Orders</h5>
-              <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="offcanvas">
-                <i class="material-icons-outlined">close</i>
-              </a>
-            </div>
-            <div class="offcanvas-body p-0">
-              <div class="order-list">
-                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-                  <div class="order-img">
-                    <img src="assets/images/orders/01.png" class="img-fluid rounded-3" width="75" alt="">
-                  </div>
-                  <div class="order-info flex-grow-1">
-                    <h5 class="mb-1 order-title">White Men Shoes</h5>
-                    <p class="mb-0 order-price">$289</p>
-                  </div>
-                  <div class="d-flex">
-                    <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-                    <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-                  </div>
-                </div>
-
-                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-                  <div class="order-img">
-                    <img src="assets/images/orders/02.png" class="img-fluid rounded-3" width="75" alt="">
-                  </div>
-                  <div class="order-info flex-grow-1">
-                    <h5 class="mb-1 order-title">Red Airpods</h5>
-                    <p class="mb-0 order-price">$149</p>
-                  </div>
-                  <div class="d-flex">
-                    <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-                    <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-                  </div>
-                </div>
-
-                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-                  <div class="order-img">
-                    <img src="assets/images/orders/03.png" class="img-fluid rounded-3" width="75" alt="">
-                  </div>
-                  <div class="order-info flex-grow-1">
-                    <h5 class="mb-1 order-title">Men Polo Tshirt</h5>
-                    <p class="mb-0 order-price">$139</p>
-                  </div>
-                  <div class="d-flex">
-                    <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-                    <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-                  </div>
-                </div>
-
-                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-                  <div class="order-img">
-                    <img src="assets/images/orders/04.png" class="img-fluid rounded-3" width="75" alt="">
-                  </div>
-                  <div class="order-info flex-grow-1">
-                    <h5 class="mb-1 order-title">Blue Jeans Casual</h5>
-                    <p class="mb-0 order-price">$485</p>
-                  </div>
-                  <div class="d-flex">
-                    <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-                    <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-                  </div>
-                </div>
-
-                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-                  <div class="order-img">
-                    <img src="assets/images/orders/05.png" class="img-fluid rounded-3" width="75" alt="">
-                  </div>
-                  <div class="order-info flex-grow-1">
-                    <h5 class="mb-1 order-title">Fancy Shirts</h5>
-                    <p class="mb-0 order-price">$758</p>
-                  </div>
-                  <div class="d-flex">
-                    <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-                    <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-                  </div>
-                </div>
-
-                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-                  <div class="order-img">
-                    <img src="assets/images/orders/06.png" class="img-fluid rounded-3" width="75" alt="">
-                  </div>
-                  <div class="order-info flex-grow-1">
-                    <h5 class="mb-1 order-title">Home Sofa Set </h5>
-                    <p class="mb-0 order-price">$546</p>
-                  </div>
-                  <div class="d-flex">
-                    <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-                    <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-                  </div>
-                </div>
-
-                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-                  <div class="order-img">
-                    <img src="assets/images/orders/07.png" class="img-fluid rounded-3" width="75" alt="">
-                  </div>
-                  <div class="order-info flex-grow-1">
-                    <h5 class="mb-1 order-title">Black iPhone</h5>
-                    <p class="mb-0 order-price">$1049</p>
-                  </div>
-                  <div class="d-flex">
-                    <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-                    <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-                  </div>
-                </div>
-
-                <div class="order-item d-flex align-items-center gap-3 p-3 border-bottom">
-                  <div class="order-img">
-                    <img src="assets/images/orders/08.png" class="img-fluid rounded-3" width="75" alt="">
-                  </div>
-                  <div class="order-info flex-grow-1">
-                    <h5 class="mb-1 order-title">Goldan Watch</h5>
-                    <p class="mb-0 order-price">$689</p>
-                  </div>
-                  <div class="d-flex">
-                    <a class="order-delete"><span class="material-icons-outlined">delete</span></a>
-                    <a class="order-delete"><span class="material-icons-outlined">visibility</span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="offcanvas-footer h-70 p-3 border-top">
-              <div class="d-grid">
-                <button type="button" class="btn btn-grd btn-grd-primary" data-bs-dismiss="offcanvas">View Products</button>
-              </div>
-            </div>
-        </div>
+       
   <!--end cart-->
 
 
 
   <!--start switcher-->
-  {{-- <button class="btn btn-grd btn-grd-primary position-fixed bottom-0 end-0 m-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
+  <button class="btn btn-grd btn-grd-primary position-fixed bottom-0 end-0 m-3 d-flex align-items-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
     <i class="material-icons-outlined">tune</i>Customize
   </button>
   
@@ -358,7 +273,7 @@
 
       </div>
     </div>
-  </div> --}}
+  </div>
         
     </div>
   </main>
@@ -406,89 +321,7 @@
 	<script src="{{ asset('vertical/assets/plugins/fancy-file-uploader/jquery.iframe-transport.js') }}"></script>
 	<script src="{{ asset('vertical/assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js') }}"></script>
 	<script src="{{ asset('vertical/assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js') }}"></script>
-  <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
-  <script src="{{ asset('assets/js/data-widgets.js') }}"></script>
-  <script src="{{ asset('assets/js/main.js') }}"></script>
-  <!-- MathJax -->
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-
-  {{-- testi --}}
-  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2.1.1/dist/socket.io.js"></script>
-  <script type="module">
-    import Echo from 'https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.15.0/echo.js';
-
-    window.io = io;
-
-    window.Echo = new Echo({
-      broadcaster: 'socket.io',
-      host: window.location.hostname + ':6001'
-    });
-
-    window.Echo.channel('messages')
-    .listen('.newMessage', function (e) {
-      console.log('✅ Event diterima:', e); 
-
-      const notifCount = document.getElementById('notif-count');
-      notifCount.textContent = e.total;
-
-      const notifList = document.getElementById('notif-list');
-      notifList.innerHTML = '';
-
-      e.orders.forEach(order => {
-        const notifItem = document.createElement('div');
-        notifItem.innerHTML = `
-          <a class="dropdown-item border-bottom py-2" href="javascript:;
-            <div class="d-flex align-items-center gap-3">
-              <div class="user-wrapper bg-primary text-primary bg-opacity-10">
-                <span>${order.username.charAt(0).toUpperCase()}</span>
-              </div>
-              <div>
-                <h5 class="notify-title">#${order.kode_pemesanan} - ${order.status}</h5>
-                <p class="mb-0 notify-desc">${order.username}</p>
-                <p class="mb-0 notify-time">${new Date().toLocaleTimeString()}</p>
-              </div>
-              <div class="notify-close position-absolute end-0 me-3">
-                <i class="material-icons-outlined fs-6">close</i>
-              </div>
-            </div>
-          </a>
-        `;
-        notifList.appendChild(notifItem);
-      });
-    });
-
-  </script>
-
-  
-
-  {{-- end test --}}
-  
-   {{-- <script>
-      document.querySelectorAll('input[name="theme-options"]').forEach((radio) => {
-      radio.addEventListener('change', function() {
-        let selectedTheme = this.value;
-
-        // Kirim ke backend via AJAX atau fetch API
-        fetch("{{ route('theme.update') }}", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-          },
-          body: JSON.stringify({ theme: selectedTheme })
-        }).then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              document.documentElement.setAttribute("data-bs-theme", selectedTheme);
-            }
-          });
-      });
-    });
-  </script> --}}
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
   @yield('scripts')
 </body>
 
