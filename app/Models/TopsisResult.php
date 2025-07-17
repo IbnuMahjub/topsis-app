@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TopsisResult extends Model
 {
     use HasFactory;
-    protected $fillable = ['nama_terbaik', 'nilai_preferensi', 'log_perhitungan'];
+    protected $fillable = ['nama_terbaik', 'nilai_preferensi', 'log_perhitungan', 'status'];
 }

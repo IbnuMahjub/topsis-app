@@ -10,6 +10,7 @@
       <span class="material-icons-outlined">close</span>
     </div>
   </div>
+  
   <div class="sidebar-nav">
     <ul class="metismenu" id="sidenav">
       <li class="{{ request()->is('dashboard') || request()->is('profile') ? 'mm-active' : '' }}">
@@ -41,6 +42,15 @@
             <div class="menu-title">Topsis</div>
           </a>
         </li>
+      @endcan
+      @can('capt')
+      <li class="menu-label">Capt</li>
+      <li class="">
+        <a href="/test">
+          <div class="parent-icon"><i class="material-icons-outlined">check</i></div>
+          <div class="menu-title">Aprove</div>
+        </a>
+      </li>
       @endcan
       <li class="">
         <a href="/list-terbaik">

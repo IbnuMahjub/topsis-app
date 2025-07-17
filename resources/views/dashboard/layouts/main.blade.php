@@ -281,6 +281,12 @@
 
   <!-- Load jQuery First -->
   <script src="{{ asset('vertical/assets/js/jquery.min.js') }}"></script>
+  <!-- jQuery UI CSS -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+  <!-- jQuery UI JS -->
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
 
   {{-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> --}}
 
