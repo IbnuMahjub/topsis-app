@@ -77,4 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/kriteria', [DataKaryawanController::class, 'kriteria_store'])->name('kriteria.store');
     Route::put('/kriteria/{id}', [DataKaryawanController::class, 'kriteria_update'])->name('kriteria.update');
     Route::delete('/kriteria/{id}', [DataKaryawanController::class, 'kriteria_delete'])->name('kriteria.delete');
+
+    Route::get('/test', [DataKaryawanController::class, 'test'])->middleware('capt');
+    Route::put('/topsis/status/{id}', [DataKaryawanController::class, 'updateStatus'])->name('topsis.updateStatus');
 });

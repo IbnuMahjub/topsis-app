@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TopsisResult;
 use App\Models\tr_krriteria;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -245,5 +246,38 @@ class DataKaryawanController extends Controller
             'data' => $kriteria,
             'message' => 'Kriteria berhasil dihapus.'
         ]);
+    }
+
+    public function test()
+    {
+        // $test = [
+        //     'test' => 'test',
+        // ];
+        $breadcrumbs = [
+            ['title' => 'Dashboard', 'url' => route('dashboard')],
+            ['title' => 'Analysis', 'url' => '/list-terbaik', 'active' => true],
+        ];
+        $this->generateBreadcrumb($breadcrumbs, $breadcrumbsTitle = 'Aprove Karyawan Terbaik');
+        // $data = TopsisResult::where('status', 0)->get();
+        $data = TopsisResult::all();
+        // return response()->json($data);
+        return view('dashboard.kriteria.aprove', [
+            'title' => 'Aprove Karyawan Terbaik',
+            'active' => 'kriteria',
+            'data' => $data
+        ]);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:0,1'
+        ]);
+
+        $data = TopsisResult::findOrFail($id);
+        $data->status = $request->status;
+        $data->save();
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui.');
     }
 }

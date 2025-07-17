@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_terbaik');
             $table->float('nilai_preferensi');
             $table->longText('log_perhitungan');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

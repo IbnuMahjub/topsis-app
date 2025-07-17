@@ -40,6 +40,16 @@ class DatabaseSeeder extends Seeder
 
         ]);
 
+        User::create([
+            'name' => 'captain',
+            'username' => 'captain',
+            'email' => 'captain@gmail.com',
+            'password' => bcrypt('12345'),
+            'jabatan' => 'Captain',
+            'is_admin' => 2
+
+        ]);
+
         // tr_krriteria::factory(10)->create();
         // $this->call([
         //     AbsenSeeder::class,

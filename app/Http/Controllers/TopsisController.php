@@ -25,9 +25,10 @@ class TopsisController extends Controller
         $validated = $request->validate([
             'nama_terbaik' => 'required|string',
             'nilai_preferensi' => 'required|numeric',
-            'log_perhitungan' => 'required'
+            'log_perhitungan' => 'required',
         ]);
 
+        $validated['status'] = 0;
         $hasil = TopsisResult::create($validated);
 
         return response()->json([
@@ -55,7 +56,9 @@ class TopsisController extends Controller
     }
     public function karyawanTerbaikTable()
     {
-        $semuaHasil = TopsisResult::orderByDesc('id')->get(); // Ambil semua, urutkan terbaru duluan
+        $semuaHasil = TopsisResult::orderByDesc('id')
+            ->where('status', 1)
+            ->get(); // Ambil semua, urutkan terbaru duluan
 
         $breadcrumbs = [
             ['title' => 'Dashboard', 'url' => route('dashboard')],
