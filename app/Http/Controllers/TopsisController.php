@@ -56,9 +56,9 @@ class TopsisController extends Controller
     }
     public function karyawanTerbaikTable()
     {
-        $semuaHasil = TopsisResult::orderByDesc('id')
-            ->where('status', 1)
-            ->get(); // Ambil semua, urutkan terbaru duluan
+        $semuaHasil = TopsisResult::where('status', 1)
+            ->orderByDesc('nilai_preferensi') // Urut dari yang tertinggi
+            ->get();
 
         $breadcrumbs = [
             ['title' => 'Dashboard', 'url' => route('dashboard')],
